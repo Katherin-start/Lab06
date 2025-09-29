@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.bson.types.ObjectId; 
 
 public class Usuario {
     private int id;
@@ -13,10 +14,13 @@ public class Usuario {
     private Date fechaIngreso;
     private Date fechaFin;
 
-    // Constructor vacío
+
+    private ObjectId mongoId;
+
+
     public Usuario() {}
 
-    // Constructor con parámetros
+
     public Usuario(int id, String nombres, String apellidos, String area,
                    Date fechaNacimiento, Date fechaIngreso, Date fechaFin) {
         this.id = id;
@@ -28,7 +32,6 @@ public class Usuario {
         this.fechaFin = fechaFin;
     }
 
-    // Getters y Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -50,7 +53,16 @@ public class Usuario {
     public Date getFechaFin() { return fechaFin; }
     public void setFechaFin(Date fechaFin) { this.fechaFin = fechaFin; }
 
-    // Método para depuración
+ 
+    public ObjectId getMongoId() {
+        return mongoId;
+    }
+
+    public void setMongoId(ObjectId mongoId) {
+        this.mongoId = mongoId;
+    }
+
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -61,10 +73,10 @@ public class Usuario {
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", fechaIngreso=" + fechaIngreso +
                 ", fechaFin=" + fechaFin +
+                ", mongoId=" + (mongoId != null ? mongoId.toHexString() : "null") +
                 '}';
     }
 
-    // 🔎 Método buscador en lista de usuarios
     public static List<Usuario> buscarEnLista(List<Usuario> usuarios, String criterio) {
         List<Usuario> resultado = new ArrayList<>();
         String criterioLower = criterio.toLowerCase();

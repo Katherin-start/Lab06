@@ -9,15 +9,44 @@
     <div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6">
         <h2 class="text-2xl font-bold mb-6 text-center">Usuarios Registrados</h2>
 
+
+        <div class="flex justify-between mb-4">
+            <form action="UsuarioServlet" method="get" class="flex gap-2">
+                <input type="hidden" name="action" value="buscar">
+                <input type="text" name="criterio" placeholder="Buscar por nombre/apellido"
+                       class="border border-gray-300 rounded px-3 py-2">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Buscar
+                </button>
+            </form>
+
+            <form action="UsuarioServlet" method="get" class="flex gap-2">
+                <input type="hidden" name="action" value="filtrarArea">
+                <select name="area" class="border border-gray-300 rounded px-3 py-2">
+                    <option value="">-- Seleccionar Área --</option>
+                    <option value="Sistemas">Sistemas</option>
+                    <option value="Ventas">Ventas</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="RRHH">RRHH</option>
+                </select>
+                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                    Filtrar
+                </button>
+            </form>
+        </div>
+        
+
         <div class="flex justify-between mb-4">
             <a href="registrarUsuario.jsp" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Registrar</a>
             <a href="UsuarioServlet?action=historicos" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Ver Históricos</a>
         </div>
 
+ 
         <table class="min-w-full border border-gray-300">
             <thead class="bg-gray-200">
                 <tr>
                     <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Mongo _id</th>
                     <th class="px-4 py-2">Nombres</th>
                     <th class="px-4 py-2">Apellidos</th>
                     <th class="px-4 py-2">Área</th>
@@ -35,6 +64,9 @@
             %>
                 <tr class="border-b">
                     <td class="px-4 py-2"><%=u.getId()%></td>
+                    <td class="px-4 py-2">
+                        <%= (u.getMongoId() != null ? u.getMongoId().toHexString() : "") %>
+                    </td>
                     <td class="px-4 py-2"><%=u.getNombres()%></td>
                     <td class="px-4 py-2"><%=u.getApellidos()%></td>
                     <td class="px-4 py-2"><%=u.getArea()%></td>
